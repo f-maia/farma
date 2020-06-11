@@ -1,6 +1,13 @@
-function sum(a: number, b: number): number {
-  console.log('This function returns the sum of 2 numbers.');
-  return a + b;
-}
+import express from 'express';
+import cors from 'cors';
 
-console.log('result:', sum(3, 5));
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+app.get('/', (req, res) => {
+  return res.json({ status: `Server running on ${process.env.APP_URL}` });
+});
+
+app.listen(process.env.APP_PORT);
