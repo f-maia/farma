@@ -1,0 +1,8 @@
+# Dependencies
+node_modules
+
+# Logs
+yarn-error.log
+
+# Misc
+.env
