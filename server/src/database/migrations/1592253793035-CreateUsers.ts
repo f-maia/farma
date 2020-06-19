@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 import { uf } from '../../utils/UFs';
+import { typeAccount } from '../../utils/TypeAccounts';
 
 export default class CreateUsers1592253793035 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -62,6 +63,12 @@ export default class CreateUsers1592253793035 implements MigrationInterface {
           {
             name: 'zip_code',
             type: 'varchar',
+          },
+          {
+            name: 'type_account',
+            type: 'varchar',
+            enum: typeAccount,
+            default: "'client'",
           },
           {
             name: 'active_account',
