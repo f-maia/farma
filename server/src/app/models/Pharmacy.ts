@@ -4,7 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
+import User from './User';
 
 @Entity('pharmacies')
 class Pharmacy {
@@ -13,6 +16,12 @@ class Pharmacy {
 
   @Column()
   cnpj: string;
+
+  @OneToOne(() => User, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'id' })
+  user: User;
 
   @Column()
   description: string;

@@ -4,10 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { UF } from '../../utils/UFs';
+import Client from './Client';
+import Pharmacy from './Pharmacy';
 
 enum TypeAccount {
   'client',
@@ -55,6 +59,14 @@ class User {
 
   @Column()
   zip_code: string;
+
+  // @OneToOne(() => Client, client => client.user)
+  // @JoinColumn({ name: 'id' })
+  // client?: Client;
+
+  // @OneToOne(() => Pharmacy, pharmacy => pharmacy.user)
+  // @JoinColumn({ name: 'id' })
+  // pharmacy?: Pharmacy;
 
   @Column({
     type: 'enum',

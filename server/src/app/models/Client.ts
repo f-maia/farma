@@ -4,7 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
+import User from './User';
 
 @Entity('clients')
 class Client {
@@ -13,6 +16,12 @@ class Client {
 
   @Column()
   cpf: string;
+
+  @OneToOne(() => User, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'id' })
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;
