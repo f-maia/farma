@@ -6,6 +6,8 @@ import cors from 'cors';
 
 import './database';
 
+import routes from './routes';
+
 const app = express();
 
 app.use(express.json());
@@ -16,5 +18,7 @@ app.get('/test-connection', (req, res) => {
     status: `Server up and running on ${process.env.APP_URL}`,
   });
 });
+
+app.use(routes);
 
 app.listen(process.env.APP_PORT);

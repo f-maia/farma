@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import authConfig from '../config/auth';
+import authConfig from '../../config/auth';
 
 interface TokenPayload {
   iat: number;
   exp: number;
   sub: string;
+  phy: boolean;
 }
 
 export default function verifyAuthentication(
@@ -22,12 +23,13 @@ export default function verifyAuthentication(
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded = verify(token, authConfig.jwt.secret);
+    const decoded = verify(token, authConfig.jwt.secret as string);
 
-    const { sub } = decoded as TokenPayload;
+    const { sub, phy } = decoded as TokenPayload;
 
     req.user = {
       id: sub,
+      pharmacy: phy,
     };
 
     return next();
