@@ -7,6 +7,7 @@ interface TokenPayload {
   iat: number;
   exp: number;
   sub: string;
+  phy: boolean;
 }
 
 export default function verifyAuthentication(
@@ -24,10 +25,11 @@ export default function verifyAuthentication(
   try {
     const decoded = verify(token, authConfig.jwt.secret as string);
 
-    const { sub } = decoded as TokenPayload;
+    const { sub, phy } = decoded as TokenPayload;
 
     req.user = {
       id: sub,
+      pharmacy: phy,
     };
 
     return next();
