@@ -5,8 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import { UF } from '../../utils/UFs';
+
+enum TypeAccount {
+  'client',
+  'pharmacy',
+}
 
 @Entity('users')
 class User {
@@ -23,6 +29,7 @@ class User {
   tel: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
@@ -37,7 +44,10 @@ class User {
   @Column()
   building_number: string;
 
-  @Column('enum')
+  @Column({
+    type: 'enum',
+    enum: UF,
+  })
   uf: UF;
 
   @Column()
@@ -45,6 +55,12 @@ class User {
 
   @Column()
   zip_code: string;
+
+  @Column({
+    type: 'enum',
+    enum: TypeAccount,
+  })
+  type_account: TypeAccount;
 
   @Column()
   active_account: boolean;
