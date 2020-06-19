@@ -3,17 +3,10 @@ import { getRepository } from 'typeorm';
 
 import User from '../../models/User';
 
-class UserAddressController {
+class UserPersonalInfoController {
   async update(req: Request, res: Response): Promise<Response> {
     const { id } = req.user;
-    const {
-      street,
-      address_details,
-      building_number,
-      uf,
-      city,
-      zip_code,
-    } = req.body as User;
+    const { name, email, tel } = req.body;
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne(id);
@@ -21,14 +14,16 @@ class UserAddressController {
       return res.status(400).json({ error: 'User not found' });
     }
 
+    const checkEmailInUse = await usersRepository.findOne({ where: { email } });
+    if (checkEmailInUse && user.id !== checkEmailInUse.id) {
+      return res.status(400).json({ error: 'Email already in use' });
+    }
+
     const updatedUser = {
       ...user,
-      street,
-      address_details,
-      building_number,
-      uf,
-      city,
-      zip_code,
+      name,
+      email,
+      tel,
     };
 
     await usersRepository.save(updatedUser);
@@ -37,4 +32,4 @@ class UserAddressController {
   }
 }
 
-export default new UserAddressController();
+export default new UserPersonalInfoController();

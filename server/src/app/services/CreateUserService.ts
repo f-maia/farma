@@ -1,19 +1,15 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 
+import { TypeAccount } from '../../utils/TypeAccounts';
 import User from '../models/User';
 
 class CreateUserService {
-  private ormRepository: Repository<User>;
-
-  constructor() {
-    this.ormRepository = getRepository(User);
-  }
-
-  async run(userDTO: User): Promise<User> {
+  async run(userDTO: User, type = 'client'): Promise<User> {
     const { email, password } = userDTO;
+    const usersRepository = getRepository(User);
 
-    const userExists = await this.ormRepository.findOne({
+    const userExists = await usersRepository.findOne({
       where: { email },
     });
     if (userExists) {
@@ -22,13 +18,16 @@ class CreateUserService {
 
     const hashedPassword = await hash(password, 10);
 
-    const user = await this.ormRepository.create({
+    const type_account = type as unknown;
+
+    const user = await usersRepository.create({
       ...userDTO,
       password: hashedPassword,
       active_account: true,
+      type_account: type_account as TypeAccount,
     });
 
-    await this.ormRepository.save(user);
+    await usersRepository.save(user);
 
     return user;
   }
