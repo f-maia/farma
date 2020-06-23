@@ -11,7 +11,7 @@ class PharmacyController {
     const pharmaciesRepository = getRepository(Pharmacy);
 
     const pharmacy = await pharmaciesRepository.findOne(id);
-    if (!pharmacy) {
+    if (!pharmacy || !pharmacy.user.active_account) {
       return res.status(400).json({ error: 'Pharmacy not found' });
     }
 
@@ -19,28 +19,44 @@ class PharmacyController {
   }
 
   async index(req: Request, res: Response): Promise<Response> {
+    const { q = '' } = req.query;
     const pharmaciesRepository = getRepository(Pharmacy);
 
     const pharmacies = await pharmaciesRepository.find();
 
-    return res.json(pharmacies);
+    const filteredPharmacies = pharmacies.filter(pharmacy => {
+      const { active_account } = pharmacy.user;
+      const name = pharmacy.user.name.toLocaleLowerCase();
+      const query = String(q).toLocaleLowerCase();
+
+      return name.includes(query) && active_account;
+    });
+
+    return res.json(filteredPharmacies);
   }
 
   async create(req: Request, res: Response): Promise<Response> {
     const { description, cnpj, ...rest } = req.body;
     const pharmaciesRepository = getRepository(Pharmacy);
 
-    const { id } = await CreateUserService.run(rest, 'pharmacy');
+    try {
+      const user = await CreateUserService.run(rest, 'pharmacy');
 
-    const pharmacy = pharmaciesRepository.create({
-      id,
-      description,
-      cnpj,
-    });
+      const pharmacy = pharmaciesRepository.create({
+        id: user.id,
+        description,
+        cnpj,
+      });
 
-    await pharmaciesRepository.save(pharmacy);
+      await pharmaciesRepository.save(pharmacy);
 
-    return res.json(pharmacy);
+      return res.json({
+        ...user,
+        pharmacy,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 
   async update(req: Request, res: Response): Promise<Response> {
