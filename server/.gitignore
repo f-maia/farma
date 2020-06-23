@@ -6,3 +6,13 @@ yarn-error.log
 
 # Misc
 .env
+
+# uploads
+tmp/*
+!tmp/products
+!tmp/users
+
+tmp/products/*
+!tmp/products/.gitkeep
+tmp/users/*
+!tmp/users/.gitkeep
