@@ -1,27 +1,33 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
+
+import Stock from './Stock';
 import User from './User';
 
 @Entity('pharmacies')
 class Pharmacy {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   id: string;
 
   @Column()
   cnpj: string;
 
-  @OneToOne(() => User, {
+  @OneToOne(() => User, user => user.id, {
     eager: true,
   })
   @JoinColumn({ name: 'id' })
   user: User;
+
+  // @ManyToOne(() => Stock, stock => stock.pharmacy_id)
+  // stock: Stock[];
 
   @Column()
   description: string;

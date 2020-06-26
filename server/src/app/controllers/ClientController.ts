@@ -10,19 +10,23 @@ class ClientController {
     const { cpf, ...rest } = req.body;
     const clientsRepository = getRepository(Client);
 
-    const { id } = await CreateUserService.run(rest);
+    try {
+      const user = await CreateUserService.run(rest);
 
-    const client = clientsRepository.create({
-      id,
-      cpf,
-    });
+      const client = clientsRepository.create({
+        id: user.id,
+        cpf,
+      });
 
-    await clientsRepository.save(client);
+      await clientsRepository.save(client);
 
-    // Just some test, remove it afterwards
-    const client2 = await clientsRepository.findOne(id);
-
-    return res.json(client2);
+      return res.json({
+        ...user,
+        client,
+      });
+    } catch (err) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 
   async update(req: Request, res: Response): Promise<Response> {
