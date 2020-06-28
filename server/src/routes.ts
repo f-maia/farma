@@ -1,4 +1,10 @@
 import { Router } from 'express';
+import multer from 'multer';
+
+import multerConfig from './config/upload';
+
+import verifyAuthentication from './app/middlewares/verifyAuthentication';
+import verifyAccountActivityStatus from './app/middlewares/verifyAccountActivityStatus';
 
 import UserController from './app/controllers/User/UserController';
 import UserAddressController from './app/controllers/User/UserAddressController';
@@ -6,13 +12,14 @@ import UserPersonalInfoController from './app/controllers/User/UserPersonalInfoC
 import ClientController from './app/controllers/ClientController';
 import SessionController from './app/controllers/SessionController';
 import PharmacyController from './app/controllers/PharmacyController';
-
-import verifyAuthentication from './app/middlewares/verifyAuthentication';
-import verifyAccountActivityStatus from './app/middlewares/verifyAccountActivityStatus';
 import ProductController from './app/controllers/ProductController';
 import StockController from './app/controllers/StockController';
+import FavoriteController from './app/controllers/FavoriteController';
+import AlarmController from './app/controllers/AlarmController';
+import FileController from './app/controllers/FileController';
 
 const routes = Router();
+const upload = multer(multerConfig);
 
 routes.post('/users/client', ClientController.create);
 routes.post('/users/pharmacy', PharmacyController.create);
@@ -44,5 +51,20 @@ routes.delete('/products/:id', ProductController.delete);
 routes.post('/stocks', StockController.create);
 routes.put('/stocks/:product_id', StockController.update);
 routes.delete('/stocks/:product_id', StockController.delete);
+
+routes.get('/users/favorites', FavoriteController.index);
+routes.get('/users/favorites/:user_id', FavoriteController.show);
+routes.post('/users/favorites', FavoriteController.create);
+routes.delete('/users/favorites/:user_id', FavoriteController.delete);
+
+routes.get('/users/alarms', AlarmController.index);
+routes.get('/users/alarms/:id', AlarmController.show);
+routes.post('/users/alarms', AlarmController.create);
+routes.put('/users/alarms/:id', AlarmController.update);
+routes.delete('/users/alarms/:id', AlarmController.delete);
+
+routes.get('/upload/:owner_id', FileController.index);
+routes.delete('/upload/:owner_id/:id', FileController.delete);
+routes.post('/upload', upload.single('file'), FileController.create);
 
 export default routes;
