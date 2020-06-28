@@ -6,11 +6,12 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-  ManyToOne,
+  // ManyToOne,
 } from 'typeorm';
 
-import Stock from './Stock';
+// import Stock from './Stock';
 import User from './User';
+import File from './File';
 
 @Entity('pharmacies')
 class Pharmacy {
@@ -25,6 +26,13 @@ class Pharmacy {
   })
   @JoinColumn({ name: 'id' })
   user: User;
+
+  @OneToOne(() => File, file => file.owner_id, {
+    primary: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'id' })
+  avatar: File;
 
   // @ManyToOne(() => Stock, stock => stock.pharmacy_id)
   // stock: Stock[];
