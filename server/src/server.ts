@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import 'reflect-metadata';
 
+import path from 'path';
 import express from 'express';
 import cors from 'cors';
 
@@ -18,6 +19,8 @@ app.get('/test-connection', (req, res) => {
     status: `Server up and running on ${process.env.APP_URL}`,
   });
 });
+
+app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
 
 app.use(routes);
 

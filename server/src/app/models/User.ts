@@ -4,14 +4,16 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
-  JoinColumn,
+  // OneToOne,
+  // JoinColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
 import { UF } from '../../utils/UFs';
-import Client from './Client';
-import Pharmacy from './Pharmacy';
+
+// import File from './File';
+// import Client from './Client';
+// import Pharmacy from './Pharmacy';
 
 enum TypeAccount {
   'client',
@@ -37,9 +39,6 @@ class User {
   password: string;
 
   @Column()
-  avatar: string;
-
-  @Column()
   street: string;
 
   @Column()
@@ -59,6 +58,12 @@ class User {
 
   @Column()
   zip_code: string;
+
+  // @OneToOne(() => File, file => file.owner_id, {
+  //   eager: true,
+  // })
+  // @JoinColumn({ name: 'id' })
+  // avatar: File;
 
   // @OneToOne(() => Client, client => client.user)
   // @JoinColumn({ name: 'id' })

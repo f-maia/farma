@@ -1,30 +1,25 @@
-import multer, { StorageEngine } from 'multer';
+import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
+import { isUuid } from 'uuidv4';
 
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
-interface UploadConfig {
-  tmpFolder: string;
-  storage: StorageEngine;
-}
+export default {
+  tmpFolder,
+  storage: multer.diskStorage({
+    destination(req, file, cb) {
+      const { owner_id } = req.body;
 
-enum uploadFolders {
-  'products' = 'products',
-  'users' = 'users',
-}
+      const folder = isUuid(owner_id) ? 'users' : 'products';
 
-export default function upload(directory: uploadFolders): UploadConfig {
-  return {
-    tmpFolder,
-    storage: multer.diskStorage({
-      destination: path.resolve(tmpFolder, uploadFolders[directory]),
-      filename(req, file, cb) {
-        const fileHash = crypto.randomBytes(10).toString('hex');
-        const filename = `${fileHash}-${file.originalname}`;
+      return cb(null, path.resolve(tmpFolder, folder));
+    },
+    filename(req, file, cb) {
+      const fileHash = crypto.randomBytes(10).toString('hex');
+      const filename = `${fileHash}-${file.originalname}`;
 
-        return cb(null, filename);
-      },
-    }),
-  };
-}
+      return cb(null, filename);
+    },
+  }),
+};
