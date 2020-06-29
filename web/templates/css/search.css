@@ -98,7 +98,7 @@ header {
   margin-top: 50px;
   width: 156px;
   height: 156px;
-  background-image: url("/img/location.png");
+  background-image: url("/templates/img/location.png");
   background-size: cover;
   background-position: center center;
   filter: opacity(40%);
