@@ -3,11 +3,16 @@ import { Switch } from 'react-router-dom';
 
 import Route from './Route';
 
+import SignIn from '~/pages/SignIn';
+import SignUp from '~/pages/SignUp';
+import Search from '~/pages/Search';
+
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={() => <div>SignUp</div>} />
-      <Route path="/signin" component={() => <div>SignIn</div>} />
+      <Route path="/" exact component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/search" component={Search} />
     </Switch>
   );
 }
