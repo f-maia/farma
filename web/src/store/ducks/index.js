@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 
+import Auth from './auth';
+
 export default {
   Reducers: combineReducers({
-    auth: {},
+    auth: Auth.Reducer,
   }),
   *Sagas() {
-    return yield all([{}]);
+    return yield all([Auth.Sagas]);
   },
 };
