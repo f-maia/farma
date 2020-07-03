@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'polished';
 
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 import stylesConstants from './constants';
 
 export default createGlobalStyle`
@@ -88,5 +90,10 @@ export default createGlobalStyle`
     line-height: 1.375rem;
     font-weight: normal;
     color: ${stylesConstants.colors.middle_grey};
+  }
+
+  button:disabled {
+    background-color: ${stylesConstants.colors.middle_grey} !important;
+    cursor: default;
   }
 `;

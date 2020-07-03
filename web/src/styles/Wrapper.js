@@ -6,9 +6,6 @@ const Wrapper = styled.div`
 
   height: calc(100% - 7rem);
   margin-bottom: 7rem;
-
-  overflow-x: hidden;
-  overflow-y: auto;
 `;
 
 export default Wrapper;
