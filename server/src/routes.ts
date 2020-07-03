@@ -33,6 +33,10 @@ routes.get('/pharmacy/:pharmacy_id/stocks/:product_id', StockController.show);
 routes.get('/products', ProductController.index);
 routes.get('/products/:id', ProductController.show);
 
+routes.get('/upload/:owner_id', FileController.index);
+routes.delete('/upload/:owner_id/:id', FileController.delete);
+routes.post('/upload', upload.single('file'), FileController.create);
+
 routes.post('/sessions', SessionController.create);
 routes.use(verifyAuthentication);
 routes.use(verifyAccountActivityStatus);
@@ -62,9 +66,5 @@ routes.get('/users/alarms/:id', AlarmController.show);
 routes.post('/users/alarms', AlarmController.create);
 routes.put('/users/alarms/:id', AlarmController.update);
 routes.delete('/users/alarms/:id', AlarmController.delete);
-
-routes.get('/upload/:owner_id', FileController.index);
-routes.delete('/upload/:owner_id/:id', FileController.delete);
-routes.post('/upload', upload.single('file'), FileController.create);
 
 export default routes;
