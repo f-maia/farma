@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { InlineIcon } from '@iconify/react';
 import CloseCircleFullIcon from '@iconify/icons-jam/close-circle-f';
+
+import api from '~/services/api';
 
 import LocationHeader from '~/components/LocationHeader';
 import BottomNavbar from '~/components/BottomNavbar';
@@ -13,35 +15,56 @@ import mapImage from '~/assets/ilustracao_mapa.svg';
 import { Container, Content, Background } from './styles';
 
 function Search() {
+  const [pharmacies, setPharmacies] = useState([]);
+
+  async function handleSubmit({ search }) {
+    const response = await api.get('/users/pharmacy', {
+      params: {
+        q: search,
+      },
+    });
+
+    setPharmacies(response.data);
+  }
+
+  function submitOnEnterPress(e, formik) {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      formik.submitForm();
+    }
+  }
+
   return (
     <>
       <Wrapper>
         <Container>
           <LocationHeader />
           <Content>
-            <Formik
-              initialValues={{ search: '' }}
-              onSubmit={(values, actions) => {
-                console.log(values);
-                console.log(actions);
-              }}
-            >
-              <Form>
-                <Field
-                  type="search"
-                  name="search"
-                  placeholder="Buscar medicamentos"
-                />
-                <button type="submit">
-                  <InlineIcon icon={CloseCircleFullIcon} />
-                </button>
-              </Form>
+            <Formik initialValues={{ search: '' }} onSubmit={handleSubmit}>
+              {(formikBag) => (
+                <Form>
+                  <Field
+                    name="search"
+                    autoComplete="off"
+                    onKeyUp={(event) => submitOnEnterPress(event, formikBag)}
+                    placeholder="Buscar medicamentos"
+                  />
+
+                  <button type="reset">
+                    <InlineIcon icon={CloseCircleFullIcon} />
+                  </button>
+                </Form>
+              )}
             </Formik>
 
-            <Background>
-              <img src={mapImage} alt="mapa com marcadores" />
-              <h2>Encontre as farmácias mais próximas a você</h2>
-            </Background>
+            {pharmacies.length === 0 ? (
+              <Background>
+                <img src={mapImage} alt="mapa com marcadores" />
+                <h2>Encontre as farmácias mais próximas a você</h2>
+              </Background>
+            ) : (
+              <div>{pharmacies.length}</div>
+            )}
           </Content>
         </Container>
       </Wrapper>
