@@ -28,6 +28,12 @@ export const Container = styled.div`
     }
   }
 
+  span {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: ${stylesConstants.colors.magenta_pink};
+  }
+
   & + div {
     margin-top: 3rem;
   }

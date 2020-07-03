@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { Container } from './styles';
 
 function Input({
+  type,
   name,
   label,
-  type,
+  error,
   autoCapitalize,
   autoComplete,
   customStyles,
@@ -22,21 +23,24 @@ function Input({
         autoCapitalize={autoCapitalize}
         {...rest}
       />
+      {!!error && <span>{error}</span>}
     </Container>
   );
 }
 
 Input.defaultProps = {
   type: 'text',
+  error: '',
   autoCapitalize: 'off',
   autoComplete: 'off',
   customStyles: '',
 };
 
 Input.propTypes = {
+  type: PropTypes.string,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  type: PropTypes.string,
+  error: PropTypes.string,
   autoComplete: PropTypes.string,
   autoCapitalize: PropTypes.string,
   customStyles: PropTypes.string,
