@@ -1,0 +1,274 @@
+
+/*==== Índice ====
+
+1 - Imports
+
+2 - Variables
+
+3 - Main Styles
+
+5 - Typographic
+
+6 - Icon Styles
+
+==================*/
+
+
+
+/*=============================================
+=            Imports            =
+=============================================*/
+
+@import 'normalize';
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+/*=====  End of Imports  ======*/
+
+
+/*=============================================
+=            Varibles           =
+=============================================*/
+
+
+/* Colors*/
+
+$dark-blue: #1B82A8;
+
+$light-blue: #A8E6CF;
+
+$magenta-pink: #FE346E;
+
+$dark-grey: #474646;
+
+$middle-grey: #8F8F8F;
+
+$light-grey: #F8F8F8;
+
+
+/* Main Font */
+
+$base-font: 'Noto Sans',
+sans-serif;
+
+
+/* Paddins */
+
+$paddin-little: 0.625rem;     //10px
+$paddin-middle: 0.938rem;    //15px
+$paddin-large: 1.25rem;     //20px  
+$paddin-X-large: 1.875rem; //30px
+
+
+/* Margins */
+
+$margin-little: 0.625rem;     //10px
+$margin-middle: 0.938rem;    //15px
+$margin-large: 1.25rem;     //20px  
+$margin-X-large: 1.875rem; //30px
+
+
+/* Animation */
+
+$icon-transition: all 0.3s linear;
+
+
+
+/*=====  End of Section variables  ======*/
+
+
+
+/*=============================================
+=            Main Styles            =
+=============================================*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: $base-font;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+}
+
+
+.container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 90vw;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+/*=====  End of Main classes  ======*/
+
+
+
+/*=============================================
+=            Typographic            =
+=============================================*/
+
+h1 {
+    font-size: 2.063rem; //33px
+    line-height: 3.188rem; //51px
+    color: $dark-blue;
+    font-weight: 400;
+    display: none;
+}
+
+h2 {
+    font-size: 1.625rem; //26px
+    line-height: 1.688rem; //27px
+    color: $dark-blue;
+    font-weight: 400;
+    padding: $paddin-middle;
+}
+
+h3 {
+    font-size: 1.25rem; //20px
+    line-height: 1.625rem; //26px
+    font-weight: normal;
+    color: $dark-grey;
+    padding: $paddin-middle;
+}
+
+p {
+    margin: 0 auto;
+    padding: $paddin-middle;
+    width: 90%;
+    font-size: 1rem; //16px
+    line-height: 1.625rem; //26px 
+    color: $dark-grey;
+    
+    
+}
+
+h4 {
+    font-size: 0.813rem; //13px
+    line-height: 1.375rem; //17px
+    font-weight: normal;
+    color: $middle-grey;
+    
+}
+
+/*=====  End of Typographic  ======*/
+
+
+
+/*=============================================
+=            Icons Styles            =
+=============================================*/
+
+.icon-set{
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.jam{
+    display: block;
+    font-size: 2rem;
+    color: $dark-blue;
+    transition: $icon-transition;
+    margin: $margin-large;
+    &:hover{
+        transform: scale(1.3);
+        color: $magenta-pink;
+        transition: $icon-transition;
+    }
+}
+
+/*=====  End of Icons Styles  ======*/
+
+.criarConta {
+    display: flex;
+    flex-direction: row;
+}
+
+
+/*=============================================
+=            Login page Styles            =
+=============================================*/
+
+img{
+    margin-top: 15px;
+    margin-bottom: -30px;
+    width: 126px;
+    height: 217px;
+}
+
+
+.login-form{
+    width: 90%;
+    div{
+        display: flex;
+        flex-flow: column;
+        margin: 30px 0;
+        
+       
+        label{
+            color: $middle-grey;
+            text-align: left;
+        }
+        input{
+            padding: 5px 0;
+           margin:$margin-little 0;
+           
+           border: none;
+           border-bottom: 2px solid $middle-grey;
+           outline: none;
+       }
+
+    }
+
+}
+
+
+
+.btn-primary{
+    width: 100%;
+    padding: $paddin-middle;
+    border: none;
+    background-color: $dark-blue;
+    color: white;
+    border-radius: 5px;
+    margin: 40px 0 0 0;
+    outline: none;
+    cursor: pointer;
+    color: white;
+}
+
+
+.ajuda{
+    margin-bottom: 30px;
+    width: 90%;
+    a{
+        text-decoration: none;
+        color: $dark-blue;
+        padding: 0 5px;
+    }
+}
+
+.btn{
+    margin-top: 40px;
+    box-shadow: none;
+    background-color: $dark-blue;
+    &:hover{
+        box-shadow: none;
+        background-color: $dark-blue;
+    }
+    a{
+        display: block;
+        width: 100%;
+        color: white;
+     
+    }
+}
+/*=====  End of Login page Styles  ======*/
+
