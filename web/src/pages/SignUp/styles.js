@@ -106,3 +106,21 @@ export const Subtitle = styled.p`
 
   text-align: center;
 `;
+
+export const SuccessMessage = styled.p`
+  font-size: 1.3rem;
+  padding: 0;
+  margin: 0;
+  line-height: 2rem;
+  text-align: center;
+  vertical-align: center;
+
+  * {
+    padding: 0;
+    margin: 0;
+    font-size: 1.3rem;
+    color: ${stylesConstants.colors.dark_blue};
+    text-align: center;
+    vertical-align: center;
+  }
+`;
