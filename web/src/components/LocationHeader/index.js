@@ -8,7 +8,15 @@ import edit_icon from '~/assets/edit_icon.svg';
 import { Container } from './styles';
 
 function LocationHeader() {
-  const user = useSelector((state) => state.auth.user);
+  let user = useSelector((state) => state.auth.user);
+
+  if (!user) {
+    user = {
+      name: 'User',
+      street: 'Street',
+      building_number: '123',
+    };
+  }
 
   return (
     <Container>
