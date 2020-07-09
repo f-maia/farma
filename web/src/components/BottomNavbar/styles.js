@@ -13,6 +13,8 @@ export const Container = styled.div`
   padding: 10px 0px;
   box-shadow: 0px -10px 15px #f4f4f4;
 
+  background-color: white;
+
   ul {
     height: 50px;
     display: flex;
