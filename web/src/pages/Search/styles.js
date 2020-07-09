@@ -11,11 +11,13 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 3.5rem;
+  padding: 2.5rem;
   padding-bottom: 0;
 
   height: 100%;
   width: 100%;
+
+  overflow-y: auto;
 
   form {
     display: flex;
@@ -66,5 +68,17 @@ export const Background = styled.div`
     color: #d2d0d0;
 
     text-align: center;
+  }
+`;
+
+export const PharmaciesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  span {
+    color: ${stylesContainer.colors.middle_grey};
+    font-size: 1rem;
+    margin: 3rem 0;
   }
 `;
