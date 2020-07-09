@@ -1,28 +1,19 @@
 import styled from 'styled-components';
 
+import stylesConstants from '~/styles/constants';
+
 export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 3px;
   box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
   padding: 25px;
-  max-width: 450px;
-`;
 
-export const Title = styled.h1`
-  font-size: 26px;
-  color: #444;
-  margin-bottom: 10px;
-`;
-
-export const Message = styled.p`
-  color: #999;
-  font-size: 14px;
-  margin-bottom: 25px;
-  white-space: pre-wrap;
+  width: 26rem;
+  height: 18rem;
 `;
 
 export const ButtonContainer = styled.div`
@@ -30,18 +21,19 @@ export const ButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  margin-top: 3rem;
+
   button {
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 13px;
     color: #fff;
     border: 0;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: #999;
     padding: 5px;
     width: 100px;
 
     &:first-child {
-      background-color: #7d40e7;
+      background-color: ${stylesConstants.colors.dark_blue};
       margin-right: 5px;
     }
   }

@@ -4,14 +4,12 @@ import { confirmAlert } from 'react-confirm-alert';
 
 import { Container, ButtonContainer } from './styles';
 
-export default function alert(text, options) {
+export default function alert({ Message, options }) {
   return confirmAlert({
-    message: text,
     buttons: options,
-    customUI: function UI({ message: Message, buttons, onClose }) {
+    childrenElement: () => <div>children</div>,
+    customUI: function UI({ buttons, onClose }) {
       UI.propTypes = {
-        message: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
-          .isRequired,
         buttons: PropTypes.arrayOf(PropTypes.object).isRequired,
         onClose: PropTypes.func.isRequired,
       };
