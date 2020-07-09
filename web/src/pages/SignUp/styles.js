@@ -114,6 +114,7 @@ export const SuccessMessage = styled.p`
   line-height: 2rem;
   text-align: center;
   vertical-align: center;
+  color: ${stylesConstants.colors.middle_grey};
 
   * {
     padding: 0;

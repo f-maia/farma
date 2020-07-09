@@ -36,9 +36,9 @@ function SignUp() {
   });
 
   function renderSuccessMessage() {
-    const message = (
+    const Message = () => (
       <SuccessMessage>
-        Cadastro concluído
+        Cadastro concluído!
         <br />
         Seja bem vindo ao <span>BuscaMed</span>
       </SuccessMessage>
@@ -53,7 +53,7 @@ function SignUp() {
       },
     ];
 
-    alert(message, options);
+    alert({ Message, options });
   }
 
   function renderImageButton() {
