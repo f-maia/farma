@@ -83,10 +83,8 @@ function SignUp() {
       const signupRes = await api.post('/users/client', userData);
 
       const formData = new FormData();
-      formData.append('file', avatarFile.file);
       formData.append('owner_id', signupRes.data.id);
-
-      console.log(formData);
+      formData.append('file', avatarFile.file);
 
       await api.post('/upload', formData, {
         headers: {
