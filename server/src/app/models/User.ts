@@ -34,7 +34,7 @@ class User {
   @Column()
   tel: string;
 
-  @Column()
+  @Column({ select: false })
   @Exclude()
   password: string;
 

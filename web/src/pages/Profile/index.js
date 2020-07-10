@@ -6,21 +6,19 @@ import * as yup from 'yup';
 
 import api from '~/services/api';
 
-import alert from '~/utils/alert';
-
 import Input from '~/components/Input';
 import Spinner from '~/components/Spinner';
 
-import { Container, Header, Title, Subtitle, SuccessMessage } from './styles';
+import { Container, Header, Title } from './styles';
 import history from '~/services/history';
 
-function SignUp() {
+function Profile() {
   const [loading, setLoading] = useState(false);
   const [avatarFile, setAvatarFile] = useState(new FormData());
 
   const validationSchema = yup.object().shape({
     email: yup.string().required(),
-    password: yup.string().required(),
+    password: yup.string(),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref('password')], 'Passwords must match'),
@@ -35,28 +33,7 @@ function SignUp() {
     zip_code: yup.string().required(),
   });
 
-  function renderSuccessMessage() {
-    const Message = () => (
-      <SuccessMessage>
-        Cadastro concluído!
-        <br />
-        Seja bem vindo ao <span>BuscaMed</span>
-      </SuccessMessage>
-    );
-
-    const options = [
-      {
-        label: 'Fechar',
-        onClick() {
-          history.push('/');
-        },
-      },
-    ];
-
-    alert({ Message, options });
-  }
-
-  function renderImageButton() {
+  function renderAvatar() {
     const { file } = avatarFile;
 
     if (file) {
@@ -64,10 +41,10 @@ function SignUp() {
     }
 
     return (
-      <>
-        <Icon icon={CameraFullIcon} />
-        <span>Carregar foto</span>
-      </>
+      <img
+        src="https://images.unsplash.com/photo-1576602976047-174e57a47881?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80"
+        alt="preview avatar"
+      />
     );
   }
 
@@ -80,19 +57,7 @@ function SignUp() {
     }
 
     try {
-      const signupRes = await api.post('/users/client', userData);
-
-      const formData = new FormData();
-      formData.append('owner_id', signupRes.data.id);
-      formData.append('file', avatarFile.file);
-
-      await api.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      renderSuccessMessage();
+      console.log(values);
     } catch (err) {
       console.log(err);
     } finally {
@@ -103,9 +68,11 @@ function SignUp() {
   return (
     <Container>
       <Header>
-        <label htmlFor="avatar">
-          {renderImageButton()}
+        {renderAvatar()}
 
+        <label htmlFor="avatar">
+          <Icon icon={CameraFullIcon} />
+          <span>Mudar foto</span>
           <input
             type="file"
             id="avatar"
@@ -120,14 +87,13 @@ function SignUp() {
         </label>
       </Header>
 
-      <Title>Cadastro</Title>
-      <Subtitle>Bem vindo ao cadastro BuscaMED.</Subtitle>
+      <Title>Meu Perfil</Title>
 
       <Formik
         initialValues={{
           email: `${Date.now()}@x.com`,
-          password: '1',
-          confirmPassword: '1',
+          password: '',
+          confirmPassword: '',
           name: 'a',
           tel: 'a',
           cpf: 'a',
@@ -160,7 +126,7 @@ function SignUp() {
                 type="password"
                 name="password"
                 label="Senha"
-                placeholder="Digite sua senha"
+                placeholder="Digite sua nova senha"
                 error={formikBag.errors.password}
               />
               <Field
@@ -168,7 +134,7 @@ function SignUp() {
                 type="password"
                 name="confirmPassword"
                 label="Confirme sua senha"
-                placeholder="Digite sua senha novamente"
+                placeholder="Digite sua nova senha novamente"
                 error={formikBag.errors.confirmPassword}
               />
             </fieldset>
@@ -240,9 +206,11 @@ function SignUp() {
               />
             </fieldset>
 
-            <button type="submit" disabled={loading}>
-              {loading ? <Spinner /> : 'Cadastrar'}
-            </button>
+            <div>
+              <button type="submit" disabled={loading}>
+                {loading ? <Spinner /> : 'Salvar alterações'}
+              </button>
+            </div>
           </Form>
         )}
       </Formik>
@@ -250,4 +218,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default Profile;

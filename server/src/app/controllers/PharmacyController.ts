@@ -22,7 +22,9 @@ class PharmacyController {
     const { q = '' } = req.query;
     const pharmaciesRepository = getRepository(Pharmacy);
 
-    const pharmacies = await pharmaciesRepository.find();
+    const pharmacies = await pharmaciesRepository.find({
+      relations: ['user'],
+    });
 
     const filteredPharmacies = pharmacies.filter(pharmacy => {
       const { active_account } = pharmacy.user;

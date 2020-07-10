@@ -9,7 +9,7 @@ export const Container = styled.header`
   justify-content: center;
 
   width: 100vw;
-  height: 12rem;
+  height: 14rem;
   padding: ${stylesConstants.paddings.paddin_X_large};
 
   box-shadow: 0 0.5rem 1.5rem #0000000f;

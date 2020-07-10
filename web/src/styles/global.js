@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { normalize } from 'polished';
+import { normalize, opacify } from 'polished';
 
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
@@ -95,5 +95,9 @@ export default createGlobalStyle`
   button:disabled {
     background-color: ${stylesConstants.colors.middle_grey} !important;
     cursor: default;
+  }
+
+  .react-confirm-alert-overlay {
+    background: rgba(0, 0, 0, 0.5);
   }
 `;

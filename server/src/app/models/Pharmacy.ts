@@ -21,9 +21,7 @@ class Pharmacy {
   @Column()
   cnpj: string;
 
-  @OneToOne(() => User, user => user.id, {
-    eager: true,
-  })
+  @OneToOne(() => User, user => user.id, { eager: true })
   @JoinColumn({ name: 'id' })
   user: User;
 

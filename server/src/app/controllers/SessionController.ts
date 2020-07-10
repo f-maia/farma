@@ -12,6 +12,21 @@ class SessionsController {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne({
+      select: [
+        'id',
+        'active_account',
+        'address_details',
+        'building_number',
+        'city',
+        'email',
+        'name',
+        'password',
+        'street',
+        'tel',
+        'type_account',
+        'uf',
+        'zip_code',
+      ],
       where: { email: String(email) },
     });
     if (!user) {
@@ -41,6 +56,8 @@ class SessionsController {
         expiresIn,
       },
     );
+
+    delete user.password;
 
     return res.json({ user, token });
   }

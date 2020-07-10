@@ -27,18 +27,22 @@ export const Container = styled.div`
       }
     }
 
-    button {
-      width: 100%;
-      padding: ${stylesConstants.paddings.paddin_middle};
-      border: none;
-      background-color: ${stylesConstants.colors.dark_blue};
-      color: white;
-      border-radius: 5px;
-      margin-top: ${stylesConstants.margins.margin_X_large};
-      font-size: 2rem;
-      outline: none;
-      color: white;
-      margin-bottom: 5rem;
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: ${stylesConstants.margins.margin_X_large} auto 5rem;
+
+      button {
+        padding: 1rem 2.5rem;
+        border: none;
+        background-color: ${stylesConstants.colors.light_grey};
+        color: ${stylesConstants.colors.dark_blue};
+        border-radius: 5px;
+        font-size: 1.6rem;
+        outline: none;
+      }
     }
   }
 `;
@@ -47,40 +51,38 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 
   width: 100%;
-  height: 19rem;
+  height: 22rem;
   padding: ${stylesConstants.paddings.paddin_X_large};
 
   box-shadow: 0 0.5rem 1.5rem #0000000f;
 
   margin-bottom: 2.5rem;
 
+  img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+  }
+
   label {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 12rem;
-    height: 12rem;
-    background: #d2d0d0;
-    border-radius: 50%;
     margin: 0;
-
-    img {
-      width: 12rem;
-      height: 12rem;
-      border-radius: 50%;
-    }
+    margin-top: 1.5rem;
 
     svg {
-      color: ${stylesConstants.colors.dark_grey};
-      font-size: 2.5rem;
+      color: ${stylesConstants.colors.dark_blue};
+      font-size: 1.6rem;
     }
 
     span {
       color: ${stylesConstants.colors.middle_grey};
-      font-size: 1rem;
+      font-size: 0.8rem;
       align-self: center;
     }
 
@@ -114,7 +116,6 @@ export const SuccessMessage = styled.p`
   line-height: 2rem;
   text-align: center;
   vertical-align: center;
-  color: ${stylesConstants.colors.middle_grey};
 
   * {
     padding: 0;
